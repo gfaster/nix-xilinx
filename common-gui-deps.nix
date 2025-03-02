@@ -16,6 +16,10 @@ pkgs:
     '';
     destination = "/etc/issue";
   })
+  # Editor deps
+  alacritty
+  (import /etc/configuration/nixos/my-nvim.nix)
+
   zlib
   lsb-release
   stdenv.cc.cc
