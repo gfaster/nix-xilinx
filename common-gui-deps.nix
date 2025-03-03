@@ -28,6 +28,15 @@ in
     mkdir -p $dir
     ln -s ${kdePackages.breeze-icons}/share/icons/breeze_cursors $dir/default
   '')
+  # hack to get editor working - need to run the following in another window:
+  # nvim --listen ~/.cache/nvim/vivado_server.pipe
+  (runCommandLocal "editor hack" {} ''
+    mkdir -p $out/bin
+    tgt=$out/bin/editor-hack
+    echo "#!/usr/bin/env bash" >> $tgt
+    echo 'nvim --server /home/gavin/.cache/nvim/vivado_server.pipe --headless --remote-send "<C-\\><C-N>:n $1<CR>"' >> $tgt
+    chmod 111 $tgt
+    '')
 
   zlib
   lsb-release
