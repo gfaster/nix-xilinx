@@ -1,7 +1,6 @@
-with import <nixpkgs> {};
-
+pkgs:
 let
-plugins = with vimPlugins; [
+plugins = with pkgs.vimPlugins; [
   vim-fugitive
   vim-sleuth
   neodev-nvim
@@ -25,5 +24,5 @@ plugins = with vimPlugins; [
   indent-blankline-nvim
 ];
 in
-vimUtils.packDir ({my-nvim = {start = plugins; }; })
+pkgs.vimPlugins.vimUtils.packDir ({my-nvim = {start = plugins; }; })
 # vimUtils.packDir (plugins)

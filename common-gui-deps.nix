@@ -2,6 +2,9 @@
 # https://github.com/TUM-DSE/doctor-cluster-config/blob/master/pkgs/xilinx/fhs-env.nix
 pkgs:
 
+let 
+  myVim = (import ./my-nvim.nix {});
+in
 (with pkgs; [
   bash
   coreutils
@@ -16,9 +19,15 @@ pkgs:
     '';
     destination = "/etc/issue";
   })
-  # Editor deps
+
+  # Editor + kde deps
   alacritty
-  (import ./my-nvim.nix)
+  # hack for cursor
+  (runCommandLocal "breeze-cursors-fix" {} ''
+    dir=$out/share/icons
+    mkdir -p $dir
+    ln -s ${kdePackages.breeze-icons}/share/icons/breeze_cursors $dir/default
+  '')
 
   zlib
   lsb-release
