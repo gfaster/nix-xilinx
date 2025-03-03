@@ -18,7 +18,7 @@ pkgs:
   })
   # Editor deps
   alacritty
-  (import /etc/configuration/nixos/my-nvim.nix)
+  (import ./my-nvim.nix)
 
   zlib
   lsb-release
